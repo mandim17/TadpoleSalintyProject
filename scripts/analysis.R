@@ -4,17 +4,46 @@ library("gtsummary")
 library("tidycmprsk")
 library("condsurv")
 library("survival")
+install.packages("tidyverse")
+ggpubr
+rstatix provides pipe-friendly R functions for easy statistical analyses
+datarium
 
-dat <- read.csv('./data/clean_data/ProjectSurvivalData.csv')
-head(R_Class_Final_Project_Survival_Data)
-dat <- dat[ , 1:5]
+dat <- read.csv('./data/clean_data/ProjectSurvivalData24hr.csv')
+
+names(dat)
+
+dat1 <- dat[ , 3:5]
 head(dat)
-dat$Treatment <- factor(dat$Treatment, levels = c('C', 'T'))
+
+# C = 0, S = 1
+dat$Treatment <- factor(dat$Treatment, levels = c('0', '1'))
 
 # options(contrasts=c("contr.sum", "contr.poly"))
-fit1 <- lm(Consumed ~ Treatment*Hours, data=dat) 
-summary(fit1)
+# fit1 <- lm(Consumed) ~ Hours*Treatment, data=dat) 
+summary(dat)
 
-let_mod1=survfit(Surv(Consumed)~Treatment+Hours, data=dat)
-plot(let_mod1, ylab='Survival Probability', xlab='Hours')
+# test1 <- survfit(Surv(Consumed)~Treatment, data=dat)
+#plot(test1, ylab='Survival Probability', xlab='Consumed')
+
+uni_id <- paste(dat$Trial, dat$Container, sep = '-')
+
+mod <- lm(Consumed ~ factor(Treatment) * Hours + factor(uni_id), data = dat)
+
+?interaction.plot
+
+
+#test2 <- survfit(Surv(Hours, ) ~ factor(Treatment) + Consumed, data = dat)
+#plot(test2, col=1:5, ylab='Survival Probability', xlab='Hours')
+
+
+
+# dat$Treatment <- factor(dat$Treatment, levels = c('C', 'S'))
+
+#test1$strata
+
+# habitat <- rep(C:S, test1$strata)
+
+
+
 
