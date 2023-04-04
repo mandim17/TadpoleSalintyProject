@@ -55,3 +55,9 @@ df <- data.frame(Container=rep(1:50, each=6),
 #data
 df
 
+model <- aov(Consumed~factor(Treatment)+Error(factor(Container)), data = df)
+
+summary(model)
+
+
+
