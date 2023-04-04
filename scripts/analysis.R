@@ -5,8 +5,8 @@ library("tidycmprsk")
 library("condsurv")
 library("survival")
 install.packages("tidyverse")
-ggpubr
-rstatix provides pipe-friendly R functions for easy statistical analyses
+install.packages("ggpubr")
+instrstatix provides pipe-friendly R functions for easy statistical analyses
 datarium
 
 dat <- read.csv('./data/clean_data/ProjectSurvivalData24hr.csv')
