@@ -1,4 +1,8 @@
+#Object of project: Determine if tadpoles(prey) are disproportionately impacted by salinity compared to dragonfly nymphs(predators), and therefore more vulnerable to predation
 
+#instructions & acknowledgements: still working on this
+
+#Code still working on this
 #library("lubridate")
 #library("ggsurvfit")
 #library("gtsummary")
@@ -35,7 +39,7 @@
 # habitat <- rep(C:S, test1$strata)
 
 
-
+#Repeated measures anova (new code/format)
 
 library(rstatix)
 library(reshape)
