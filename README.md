@@ -1,5 +1,3 @@
-# TadpoleSalintyProject
-
 
 #library("lubridate")
 #library("ggsurvfit")
@@ -39,7 +37,6 @@
 
 
 
-library(xlsx)
 library(rstatix)
 library(reshape)
 library(tidyverse)
@@ -50,15 +47,18 @@ library(datarium)
 
 dat <- read.csv('./data/clean_data/ProjectSurvivalData24hr.csv')
 
-#Repeated measures anova
-set.seed(0123)
-data("dat", package = "datarium")
-dat %>% sample_n_by(Treatment, size = 1)
 
-dat <- dat %>%
-  gather(key = "Hours", value = "Consumed")
+#data range
+df <- data.frame(Container=rep(1:50, each=6),
+                 Treatment=rep(0:1, times=1),
+                  Consumed = c(0,1,2,3))
+#data
+df
 
-summary<-data %>%
-  group_by(Hours) %>%
-  get_summary_stats(Consumed, type = "mean_sd")
-data.frame(summary)
+#model
+model <- aov(Consumed~factor(Treatment)+Error(factor(Container)), data = df)
+
+#summary of model
+summary(model)
+
+#graph
