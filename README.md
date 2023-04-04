@@ -1,4 +1,10 @@
-#Object of project: Determine if tadpoles(prey) are disproportionately impacted by salinity compared to dragonfly nymphs(predators), and therefore more vulnerable to predation
+#Object of project: Determine if tadpoles(prey) are disproportionately impacted by salinity compared to dragonfly nymphs(predators), and therefore more vulnerable to predation.
+
+#The ProjectSurvivalData excel file contains all the data I collected this summer which is being analyzed. The analysis r file contains my code and the Readme contains the description and code information.
+
+#The ProjectSurvivalData contains information on trial number, container number, timepoints when data was recorded(0.5-24hrs), and treatment (0 = Control, 1 = Salinity)
+
+#Acknowledgments: Thank you to Dr. McGlinn and Dr. Welch.
 
 #instructions & acknowledgements: still working on this
 
