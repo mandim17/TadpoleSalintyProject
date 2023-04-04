@@ -1,36 +1,26 @@
-library("lubridate")
-library("ggsurvfit")
-library("gtsummary")
-library("tidycmprsk")
-library("condsurv")
-library("survival")
-install.packages("tidyverse")
-install.packages("ggpubr")
-instrstatix provides pipe-friendly R functions for easy statistical analyses
-datarium
 
-dat <- read.csv('./data/clean_data/ProjectSurvivalData24hr.csv')
+#library("lubridate")
+#library("ggsurvfit")
+#library("gtsummary")
+#library("tidycmprsk")
+#library("condsurv")
+#library("survival")
+#install.packages("tidyverse")
+#install.packages("ggpubr")
+#install.packages("instrstatix")
+#install.packages("datarium")
 
-names(dat)
+# Everything under this section is code from the previous survival analysis I tried, but I am switching to a repeated measure anova
 
-dat1 <- dat[ , 3:5]
-head(dat)
+#names(dat)
+
+#dat1 <- dat[ , 3:5]
+#head(dat)
 
 # C = 0, S = 1
-dat$Treatment <- factor(dat$Treatment, levels = c('0', '1'))
+#dat$Treatment <- factor(dat$Treatment, levels = c('0', '1'))
 
-# options(contrasts=c("contr.sum", "contr.poly"))
-# fit1 <- lm(Consumed) ~ Hours*Treatment, data=dat) 
-summary(dat)
-
-# test1 <- survfit(Surv(Consumed)~Treatment, data=dat)
-#plot(test1, ylab='Survival Probability', xlab='Consumed')
-
-uni_id <- paste(dat$Trial, dat$Container, sep = '-')
-
-mod <- lm(Consumed ~ factor(Treatment) * Hours + factor(uni_id), data = dat)
-
-?interaction.plot
+# options(contra?interaction.plot
 
 
 #test2 <- survfit(Surv(Hours, ) ~ factor(Treatment) + Consumed, data = dat)
@@ -46,4 +36,28 @@ mod <- lm(Consumed ~ factor(Treatment) * Hours + factor(uni_id), data = dat)
 
 
 
+
+library(xlsx)
+library(rstatix)
+library(reshape)
+library(tidyverse)
+library(dplyr)
+library(ggpubr)
+library(plyr)
+library(datarium)
+
+dat <- read.csv('./data/clean_data/ProjectSurvivalData24hr.csv')
+
+#Repeated measures anova
+set.seed(0123)
+data("dat", package = "datarium")
+dat %>% sample_n_by(Treatment, size = 1)
+
+dat <- dat %>%
+  gather(key = "Hours", value = "Consumed")
+
+summary<-data %>%
+  group_by(Hours) %>%
+  get_summary_stats(Consumed, type = "mean_sd")
+data.frame(summary)
 
