@@ -6,6 +6,7 @@ library(dplyr)
 library(ggpubr)
 library(plyr)
 library(datarium)
+install.packages("AICcmodavg")
 
 #plyr load first
 
@@ -23,11 +24,24 @@ dat %>%
   summarize(mean_consumed = mean(Consumed))
 
 #Anova test
+?anova_test
 
-model <- aov(Consumed ~ Hours * Treatment, data=dat)
-summary(model)
+twoway <- aov(Consumed ~  Treatment + Hours + Treatment:Hours + Error(factor(Container)),
+              data=dat)
+summary(twoway)
+
+interaction <- aov(Consumed ~ Hours*Treatment, data=dat)
+summary(interaction)
 
 #graph
 
+library(AICcmodavg)
+
+model.set <- list(twoway, interaction)
+model.names <- c("twoway", "interaction")
+
+aictab(model.set, modnames = model.names)
 
 
+#graph
+xyplot(Otime, group = Id, data = dtL.data, type = "b")
