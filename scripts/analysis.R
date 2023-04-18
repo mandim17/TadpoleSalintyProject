@@ -58,7 +58,22 @@ tad_key <- list(x = NULL, y = NULL, corner = c(0, 1),
 
 xyplot(Consumed ~ Hours, group = Treatment, main = "Tadpoles Consumed", data = dat, type= "a", col=c("blue", "red"), key = tad_key)
 
-#activity graphs
+#Nymph activity
 
+nymphact<-read.csv('./data/clean_data/Nymphactivity.csv')
 
+n_act <- t.test(nymphact$Control_activity, nymphact$Salinity_activity , var.equal = TRUE)
+n_act
+
+ggboxplot(nymphact, x = "Treatment", y = "Activity", color = "Treatment", ylab = "Nymph Activity (proportion of time)", xlab = "Treatment")
+
+#Tadpole activity
+
+tadact <- read.csv('./data/clean_data/Tadpoleactivity.csv')
+
+t_act <- t.test(tadact$Control_activity, tadact$Salinity_activity, var.equal = TRUE)
+t_act
+
+ggboxplot(tadact, x = "Treatment", y = "Activity", color = "Treatment", ylab = "Tadpole Activity (proportion of time)", xlab = "Treatment")
+          
 
